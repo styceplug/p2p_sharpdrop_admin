@@ -1,3 +1,5 @@
+import 'package:admin_p2p_sharpdrop/controllers/notification_controller.dart';
+import 'package:admin_p2p_sharpdrop/data/repo/notification_repo.dart';
 import 'package:get/get.dart';
 import 'package:admin_p2p_sharpdrop/controllers/chat_controller.dart';
 import 'package:admin_p2p_sharpdrop/models/channel_chat_model.dart';
@@ -24,12 +26,14 @@ Future<void> init() async {
   Get.lazyPut(() => AuthRepo(apiClient: Get.find(), sharedPreferences: Get.find()));
   Get.lazyPut(() => UserRepo(apiClient: Get.find(), sharedPreferences: Get.find()));
   Get.lazyPut(() => ChatRepo(apiClient: Get.find()));
+  Get.lazyPut(() => NotificationRepo(apiClient: Get.find()));
 
 
   //controllers
   Get.lazyPut(() => AuthController(authRepo: Get.find(), apiClient: Get.find()));
   Get.lazyPut(() => UserController(userRepo: Get.find(), apiClient: Get.find()));
   Get.lazyPut(() => ChatController(chatRepo: Get.find()));
+  Get.lazyPut(() => NotificationController(notificationRepo: Get.find()));
 
 
 

@@ -1,7 +1,8 @@
 import 'dart:convert';
 import 'dart:io';
-
+import 'dart:typed_data' show Uint8List;
 import 'package:dio/dio.dart';
+import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 import 'package:admin_p2p_sharpdrop/controllers/user_controller.dart';
 import 'package:admin_p2p_sharpdrop/models/channel_model.dart';
@@ -16,6 +17,7 @@ import '../models/media_model.dart';
 import '../models/message_model.dart';
 import '../utils/app_constants.dart';
 import 'package:http/http.dart' as http;
+
 
 
 class ChatController extends GetxController {
@@ -37,6 +39,7 @@ class ChatController extends GetxController {
   final ImagePicker _picker = ImagePicker();
   Rxn<File> selectedImage = Rxn<File>();
   RxBool isPreviewingImage = false.obs;
+  Rx<Uint8List?> selectedImageBytes = Rx<Uint8List?>(null);
 
 
   UserController userController = Get.find<UserController>();
@@ -155,7 +158,7 @@ class ChatController extends GetxController {
     isPreviewingImage.value = false;
   }
 
-  Future<void> pickImage() async {
+ /* Future<void> pickImage() async {
     final picker = ImagePicker();
     final pickedFile = await picker.pickImage(source: ImageSource.gallery);
     if (pickedFile != null) {
@@ -177,29 +180,55 @@ class ChatController extends GetxController {
     } else {
       print(response);
     }
-  }
-  Future<void> sendImage({
-    required String chatId,
-    required File imageFile,
-  }) async {
-    try {
-      isSendingImage.value = true;
-      final media = await chatRepo.sendImageMessage(
-        chatId: chatId,
-        imageFile: imageFile,
-      );
-      if (media != null) {
-        print('✅ Image uploaded successfully: ${media['data']['media']['url']}');
-        // Handle the response or update UI
+  }*/
+
+  Future<void> pickImage() async {
+    final picker = ImagePicker();
+    final pickedFile = await picker.pickImage(source: ImageSource.gallery);
+
+    if (pickedFile != null) {
+      if (kIsWeb) {
+        selectedImageBytes.value = await pickedFile.readAsBytes();
       } else {
-        print('⚠️ Media upload failed');
+        selectedImage.value = File(pickedFile.path);
       }
-    } catch (e) {
-      print('❌ Error while sending image: $e');
-    } finally {
-      isSendingImage.value = false;
+      isPreviewingImage.value = true;
     }
   }
+
+  Future<void> sendPickedImage(String chatId) async {
+    if (selectedImage.value == null && selectedImageBytes.value == null) return;
+
+    isUploading.value = true;
+
+    dynamic response;
+    if (kIsWeb && selectedImageBytes.value != null) {
+
+      response = await chatRepo.sendImageMessageBytes(
+        chatId: chatId,
+        imageBytes: selectedImageBytes.value!,
+      );
+    } else if (selectedImage.value != null) {
+
+      response = await chatRepo.sendImageMessage(
+        chatId: chatId,
+        imageFile: selectedImage.value!,
+      );
+    }
+
+    isUploading.value = false;
+
+    if (response != null && response['code'] == '00') {
+      await getSenderChats(chatId);
+      clearPreview();
+    } else {
+      print(response);
+    }
+  }
+
+
+
+
 
 
   Future<void> getChannelChat(String channelId) async {

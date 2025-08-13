@@ -1,5 +1,3 @@
-
-
 class Sender {
   final String id;
   final String? firstName;
@@ -18,8 +16,8 @@ class Sender {
   factory Sender.fromJson(Map<String, dynamic> json) {
     return Sender(
       id: json['_id'],
-      firstName: json['firstName'],
-      lastName: json['lastName'],
+      firstName: json['firstName'] ?? '',
+      lastName: json['lastName'] ?? '',
       email: json['email'],
       role: json['role']
     );
@@ -34,6 +32,14 @@ class Sender {
       'role': role
     };
   }
+
+  factory Sender.empty() => Sender(
+    id: '',
+    firstName: '',
+    lastName: '',
+    email: '',
+    role: '',
+  );
 }
 
 

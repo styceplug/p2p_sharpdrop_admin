@@ -27,7 +27,9 @@ class MessageModel {
       id: json['_id'] ?? '',
       content: json['content'] ?? '',
       type: json['type'] ?? '',
-      sender: Sender.fromJson(json['sender'] ?? {}),
+      sender: json['sender'] != null
+          ? Sender.fromJson(json['sender'])
+          : Sender.empty(),
       media: json['media'] != null ? Media.fromJson(json['media']) : Media(),
       createdAt: json['createdAt'] != null ? DateTime.parse(json['createdAt']) : null,
       tempChat: json['tempChat'] ?? false,
@@ -45,4 +47,13 @@ class MessageModel {
       'tempChat' : tempChat,
     };
   }
+
+  factory MessageModel.empty() => MessageModel(
+    id: '',
+    sender: Sender.empty(),
+    content: '',
+    type: '',
+    createdAt: DateTime.now(),
+    media: Media.empty(),
+  );
 }

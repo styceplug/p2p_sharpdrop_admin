@@ -21,19 +21,19 @@ class OnBoard {
 // OnBoarding content list
 final List<OnBoard> demoData = [
   OnBoard(
-    image: "assets/images/onboard1.png",
+    image: "images/onboard1.png",
     title: "Trade Crypto with P2P Sharp Drop",
     description:
         "Buy Crypto, Sell crypto, or trade gift cards seamlessly with instant support",
   ),
   OnBoard(
-    image: "assets/images/onboard2.png",
+    image: "images/onboard2.png",
     title: "Secure Transactions Guaranteed",
     description:
         "Your funds are protected with military-grade encryption and secure protocols",
   ),
   OnBoard(
-    image: "assets/images/onboard3.png",
+    image: "images/onboard3.png",
     title: "Global P2P Marketplace",
     description:
         "Connect with traders worldwide and get the best rates for your transactions",
@@ -94,7 +94,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
         decoration:  BoxDecoration(color: Theme.of(context).scaffoldBackgroundColor),
         child: Column(
           children: [
-            // Carousel area
+
             Expanded(
               child: PageView.builder(
                 onPageChanged: (index) {
@@ -112,7 +112,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                     ),
               ),
             ),
-            // Indicator area
+
             Padding(
               padding: EdgeInsets.only(bottom: Dimensions.height50),
               child: Row(
@@ -128,12 +128,12 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                 ],
               ),
             ),
-            // White space
+
             SizedBox(height: Dimensions.height10),
-            // Button area
+
             InkWell(
               onTap: () {
-                Get.offAllNamed(AppRoutes.signupScreen);
+                Get.offAllNamed(AppRoutes.signinScreen);
               },
               child: Container(
                 margin: EdgeInsets.only(bottom: Dimensions.height18),
@@ -143,23 +143,19 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                   color: Theme.of(context).primaryColor,
                   borderRadius: BorderRadius.circular(Dimensions.radius30),
                 ),
-                child: InkWell(
-                  onTap: () {
-                    Get.offAllNamed(AppRoutes.signupScreen);
-                  },
-                  child: Center(
-                    child: Text(
-                      'Join us Today',
-                      style: TextStyle(
-                        fontFamily: "Poppins",
-                        color: Colors.black,
-                        fontSize: Dimensions.font18,
-                      ),
+                child: Center(
+                  child: Text(
+                    'Join us Today',
+                    style: TextStyle(
+                      fontFamily: "Poppins",
+                      color: Colors.black,
+                      fontSize: Dimensions.font18,
                     ),
                   ),
                 ),
               ),
             ),
+
             SizedBox(height: Dimensions.height50 + 20),
           ],
         ),
@@ -204,16 +200,20 @@ class OnBoardContent extends StatelessWidget {
           ),
         ),
         const Spacer(),
-        Text(
-          title,
-          style: Theme.of(context).textTheme.displaySmall,
+        Expanded(
+          child: Text(
+            title,
+            style: Theme.of(context).textTheme.displaySmall,
+          ),
         ),
         SizedBox(height: Dimensions.height10),
-        Text(
-          description,
-          textAlign: TextAlign.left,
-            style: Theme.of(context).textTheme.bodyLarge,
+        Expanded(
+          child: Text(
+            description,
+            textAlign: TextAlign.left,
+              style: Theme.of(context).textTheme.bodyLarge,
 
+          ),
         ),
         const Spacer(),
       ],

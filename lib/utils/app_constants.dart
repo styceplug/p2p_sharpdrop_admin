@@ -1,10 +1,12 @@
+import 'package:flutter/foundation.dart';
+
 class AppConstants {
 
   // basic
   static const String APP_NAME = 'P2P Sharp Drop';
 
 
-  static const String BASE_URL = 'https://sharp-drop.onrender.com/api';
+  static const String BASE_URL = 'https://api.sharpdropapp.com/api';
 
 
 
@@ -14,6 +16,8 @@ class AppConstants {
   static const String LOGIN_USER = '/auth/login/admin';
   static const String GET_USER = '/user/profile';
   static const authToken = 'authToken';
+  static const String UPDATE_DEVICE_TOKEN = '/user/profile/device-token';
+
 
 
 
@@ -22,6 +26,8 @@ class AppConstants {
   static const String CREATE_CHANNEL = '/channel';
   static const String GET_CHANNEL = '/channel';
   static const String GET_PERSONAL_REFERRALS= '/user/referrals/personal';
+  static const String GET_NOTIFICATIONS= '/notification';
+
 
   //chat
   static const String GET_CHAT = '/chat/admin';
@@ -49,8 +55,13 @@ class AppConstants {
 
 
   static String getPngAsset(String image) {
-    return 'assets/images/$image.png';
+    if (kIsWeb) {
+      return 'images/$image.png';
+    } else {
+      return 'assets/images/$image.png';
+    }
   }
+
   static String getGifAsset(String image) {
     return 'assets/gif/$image.gif';
   }

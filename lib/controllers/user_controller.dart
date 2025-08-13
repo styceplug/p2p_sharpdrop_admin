@@ -84,7 +84,7 @@ class UserController extends GetxController {
           return; // Exit the function after successful network request
         } else {
           print('⚠️ Network request failed: ${body?['message'] ?? 'Unknown error'}');
-          // If network request fails, continue to check cache
+
         }
       } catch (networkError) {
         print('📶 Network error: $networkError');

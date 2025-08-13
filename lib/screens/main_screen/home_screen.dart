@@ -1,3 +1,5 @@
+import 'package:admin_p2p_sharpdrop/models/user_model.dart';
+import 'package:admin_p2p_sharpdrop/widgets/snackbars.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -133,7 +135,7 @@ class _HomeScreenState extends State<HomeScreen> {
             child: Obx(() {
               if (userController.isLoading.value) {
                 return CircularProgressIndicator(
-                    color: Theme.of(context).unselectedWidgetColor,
+                  color: Theme.of(context).unselectedWidgetColor,
                 );
               } else {
                 return Text('Create');
@@ -197,10 +199,15 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               ),
               SizedBox(width: Dimensions.width10),
-              Icon(
-                CupertinoIcons.bell,
-                color: Theme.of(context).dividerColor,
-                size: Dimensions.iconSize24,
+              InkWell(
+                onTap: () {
+                  Get.toNamed(AppRoutes.notificationScreen);
+                },
+                child: Icon(
+                  CupertinoIcons.bell,
+                  color: Theme.of(context).dividerColor,
+                  size: Dimensions.iconSize24,
+                ),
               ),
               SizedBox(width: Dimensions.width20),
             ],
@@ -219,10 +226,21 @@ class _HomeScreenState extends State<HomeScreen> {
             child: Column(
               children: [
                 CustomButton(
-                    text: 'Create New Channel',
-                    onPressed: () {
+                  // isDisabled: userModel.value?.role != 'superAdmin',
+                  text: 'Create New Channel',
+                  onPressed: () {
+                    print(userController.userDetail.value?.role);
+                    print('role detected');
+                    if (userController.userDetail.value?.role != 'superAdmin') {
+                      MySnackBars.failure(
+                          title: 'Sorry',
+                          message:
+                              "Only Super Admins can create channels, Contact your Super Admin");
+                    } else {
                       showCreateChannelDialog(context);
-                    }),
+                    }
+                  },
+                ),
                 SizedBox(height: Dimensions.height20),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.start,
@@ -243,7 +261,13 @@ class _HomeScreenState extends State<HomeScreen> {
                 Container(
                   child: Obx(() {
                     if (userController.channels.isEmpty) {
-                      return Center(child: CircularProgressIndicator());
+                      return Center(
+                          child: Column(
+                        children: [
+                          SizedBox(height: Dimensions.height100 * 2.5),
+                          Text('No Existing Channel Available'),
+                        ],
+                      ));
                     }
                     return Column(
                       children: [
@@ -255,20 +279,21 @@ class _HomeScreenState extends State<HomeScreen> {
                             final channel = userController.channels[index];
                             return CategoryCard(
                               title: channel.name,
-                              color: Color(int.parse(channel.color.replaceAll('#', '0xff'))),
+                              color: Color(int.parse(
+                                  channel.color.replaceAll('#', '0xff'))),
                               onTap: () async {
                                 await chatController.getChannelChat(channel.id);
                               },
                             );
                           },
                         ),
-                        SizedBox(height: Dimensions.height50,)
+                        SizedBox(
+                          height: Dimensions.height50,
+                        )
                       ],
                     );
                   }),
                 ),
-
-
               ],
             ),
           ),

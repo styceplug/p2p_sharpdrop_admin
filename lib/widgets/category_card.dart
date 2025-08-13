@@ -33,13 +33,15 @@ class CategoryCard extends StatelessWidget {
           ),
         ),
         child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Container(
               height: Dimensions.height50,
               width: Dimensions.width50,
               decoration: BoxDecoration(
+                shape: BoxShape.circle,
                 color: color,
-                borderRadius: BorderRadius.circular(Dimensions.radius45),
+                // borderRadius: BorderRadius.circular(Dimensions.radius45),
               ),
             ),
             SizedBox(width: Dimensions.width20),

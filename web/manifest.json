@@ -1,6 +1,6 @@
 {
-    "name": "admin_p2p_sharpdrop",
-    "short_name": "admin_p2p_sharpdrop",
+    "name": "Admin Sharp Drop",
+    "short_name": "Admin SharpDrop",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

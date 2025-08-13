@@ -125,26 +125,9 @@ class _SigninScreenState extends State<SigninScreen> {
                       verifyForm();
                     }),
               ),
-              SizedBox(height: Dimensions.height20),
-              Text(
-                'Reset Password',
-                style: TextStyle(
-                    fontSize: Dimensions.font17,
-                    fontWeight: FontWeight.w600,
-                    color: Theme.of(context).primaryColor),
-              ),
-              SizedBox(height: Dimensions.height20 * 12),
-              InkWell(
-                  onTap: () {
-                    Get.toNamed(AppRoutes.signupScreen);
-                  },
-                  child: Text(
-                    'New here? Sign up today!!',
-                    style: TextStyle(
-                        fontSize: Dimensions.font15,
-                        color: Theme.of(context).dividerColor,
-                        fontWeight: FontWeight.w500),
-                  )),
+
+              SizedBox(height: Dimensions.height20 * 13),
+
             ],
           ),
         ),

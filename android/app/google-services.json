@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "251318898473",
+    "project_id": "sharp-drop",
+    "storage_bucket": "sharp-drop.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:251318898473:android:209a277bb6a3bc74a6b138",
+        "android_client_info": {
+          "package_name": "com.project.admin.p2psharpdrop.admin_p2p_sharpdrop"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAp7ul8oZZ9Ahin3ptYXaipsnn0td-Of1w"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:251318898473:android:3cf0b44240efc459a6b138",
+        "android_client_info": {
+          "package_name": "com.project.p2psharpdrop.p2p_sharpdrop"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAp7ul8oZZ9Ahin3ptYXaipsnn0td-Of1w"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

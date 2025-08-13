@@ -26,6 +26,12 @@ class CustomTextField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // Calculate border width and ensure it is non-negative and non-zero
+    double borderWidth = (Dimensions.width5 / Dimensions.width5);
+    if (borderWidth.isNegative || borderWidth == 0.0) {
+      borderWidth = 1.0; // Fallback to 1.0 if the calculation is invalid
+    }
+
     return TextField(
       controller: controller,
       obscureText: obscureText,
@@ -42,23 +48,19 @@ class CustomTextField extends StatelessWidget {
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(Dimensions.radius10),
           borderSide: BorderSide(
-            width: Dimensions.width5 / Dimensions.width50,
             color: Theme.of(context).dividerColor,
           ),
         ),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(Dimensions.radius10),
           borderSide: BorderSide(
-            width: Dimensions.width5 / Dimensions.width10,
             color: Theme.of(context).dividerColor,
           ),
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(Dimensions.radius10),
           borderSide: BorderSide(
-            width: Dimensions.width5 / Dimensions.width10,
             color: Theme.of(context).dividerColor,
-
           ),
         ),
       ),

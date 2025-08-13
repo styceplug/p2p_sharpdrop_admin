@@ -24,6 +24,12 @@ UserController userController = Get.find<UserController>();
 
 class _ProfileScreenState extends State<ProfileScreen> {
 
+  @override
+  void initState() {
+    // TODO: implement initState
+    userController.getUserDetails();
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -111,7 +117,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   }
 
                   return Text(
-                    user.email,
+                    user.email ?? '',
                     style: TextStyle(
                       fontSize: 18,
                       color: Theme.of(context).dividerColor,

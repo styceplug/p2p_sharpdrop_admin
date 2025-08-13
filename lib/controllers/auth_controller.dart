@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:admin_p2p_sharpdrop/screens/main_screen/profile_screen.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -141,11 +142,11 @@ class AuthController extends GetxController {
 
         await saveToken(token);
 
+        await userController.getUserDetails();
         MySnackBars.success(
           title: 'Welcome Back',
           message: 'Lets attend to customers',
         );
-
         Get.offAllNamed(AppRoutes.bottomNav);
 
       } else {
@@ -195,7 +196,19 @@ class AuthController extends GetxController {
 
   Future<void> logOut() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
+
+    // Store the current value of 'isFirstTime'
+    final bool? isFirstTime = prefs.getBool('isFirstTime');
+
+    // Clear everything
     await prefs.clear();
+
+    // Restore 'isFirstTime'
+    if (isFirstTime != null) {
+      await prefs.setBool('isFirstTime', isFirstTime);
+    }
+
+    // Navigate to sign-in screen
     Get.offAllNamed(AppRoutes.signinScreen);
   }
 

@@ -34,7 +34,7 @@ class ChannelChatModel {
 
   factory ChannelChatModel.fromJson(Map<String, dynamic> json) {
     return ChannelChatModel(
-      id: json['_id'],
+      id: json['_id'] ?? '',
       channel: (() {
         final ch = json['channel'];
         if (ch is String) {
@@ -42,20 +42,20 @@ class ChannelChatModel {
         } else if (ch is Map<String, dynamic>) {
           return ChannelModel.fromJson(ch);
         } else {
-          throw Exception("Invalid channel format");
+          return ChannelModel(id: '', name: '', color: '#000000'); // fallback
         }
       })(),
       user: UserModel.fromJson(json['user']),
       messages: (json['messages'] as List)
           .map((messageJson) => MessageModel.fromJson(messageJson))
-          .toList(),  // Correctly map each message to MessageModel
-      unreadCount: json['unreadCount'],
-      userUnreadCount: json['userUnreadCount'],
-      adminUnreadCount: json['adminUnreadCount'],
-      isActive: json['isActive'],
-      startedAt: DateTime.parse(json['startedAt']),
-      createdAt: DateTime.parse(json['createdAt']),
-      updatedAt: DateTime.parse(json['updatedAt']),
+          .toList(),
+      unreadCount: json['unreadCount'] ?? 0,
+      userUnreadCount: json['userUnreadCount'] ?? 0,
+      adminUnreadCount: json['adminUnreadCount'] ?? 0,
+      isActive: json['isActive'] ?? true,
+      startedAt: DateTime.tryParse(json['startedAt'] ?? '') ?? DateTime.now(),
+      createdAt: DateTime.tryParse(json['createdAt'] ?? '') ?? DateTime.now(),
+      updatedAt: DateTime.tryParse(json['updatedAt'] ?? '') ?? DateTime.now(),
     );
   }
 
